@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>DVDTHEQUE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link href="libs/vendors/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="libs/vendors/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+   
+   <style>
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    
+  </head>
+
+  <body>
+
+   
+   <div class="container">
+
+       <div class="row">
+     
+           <div class="col-md-3">
+              <script type="text/template" id="blog_sidebar_template">
+                <h2>Les 3 derniers films :</h2>
+                <ul>
+                <% _.each(films ,function(film){ %>
+                  <li><a href="#film/<%= film.get('id')%>"><%= film.get("titre") %></a></li>
+                <% }); %>
+                </ul>
+              </script>
+              <div class="sidebar" id="blog_sidebar"></div>
+          
+               <!-- /*======= Formulaire d'authentification =======*/ -->
+              <script type="text/template" id="blog_login_form_template">
+                <h3>Login :</h3>
+                <input name="email" type="text" placeholder="email"/><br>
+                <input name="password" type="password" placeholder="password"/><br>
+                <a href="#" id="login" class="btn btn-primary">Login</a>
+                <a href="#" id="pass" class="btn btn-default" >Logoff</a><br>
+                <b> <%= message %>  <%= firstname %>  <%= lastname %> </b><br>
+                <b>Identifiants admin, saisir 'admin'.</b>              
+              </script>
+              <form class="container" id="blog_login_form">
+
+              </form>
+          
+                    
+           </div>
+
+           <div class="col-md-9">
+                <div class="jumbotron">
+                  <h1>DVDTHEQUE</h1>
+                </div>
+
+
+                 <!-- Formulaire ajout/edition de films pour l'administrateur -->
+                        <script type="text/template" id="admin_template">
+                          <hr>
+                          <h3>Gestion des films</h3>
+                          <hr>
+                          <select id="film_choice"> 
+                            <% _.each(films ,function(film){ %>
+                              <option value="<%= film.get("id") %>"><%= film.get("titre") %></option>
+                             <% }); %>
+                          </select>
+                          
+                          <a href="#" id="btn_update" class="btn btn-primary">Modifier un film</a>
+                          <a href="#" id="btn_create" class="btn btn-primary">Ré-initialiser / Ajouter un film</a>
+                          <hr>
+                            <input type="hidden" name="id"/><br>
+                            <input name="titre" type="text" placeholder="titre"/><br>
+                            <input name="realisateur" type="text" placeholder="réalisateur"/><br>
+                            <input name="genre" type="text" placeholder="genre"/><br>
+                            <input name="origine" type="text" placeholder="origine"/><br>
+                            <input name="acteur" type="text" placeholder="acteur"/><br>
+                            <input name="annee" type="text" placeholder="année"/><br>
+                            <textarea name="resume" placeholder="Le résumé"></textarea><br>
+                            <textarea name="commentaire" placeholder="Votre commentaire"></textarea><br>
+                            <a href="#" id="btn_send" class="btn btn-primary">Enregistrer ce film</a>
+                            <a href="/">Annuler</a>
+                          <hr>
+                        </script>
+
+                        <div id="admin"></div>
+                        <!-- Fin du formulaire -->
+
+
+                <!-- template pour les films -->
+                <script type="text/template" id="films_list_template">
+
+                  <% _.each(films ,function(film){ %>
+                    <h1><%= film.get("titre") %></h1><hr>
+                    <b>Réalisé par : <%= film.get("realisateur") %></b> en : <%= film.get("annee") %><br>
+                    <a href="#film/<%= film.get('id') %>">Synopsis</a><br>
+                    <p id="<%= film.get('id') %>" class="btn">Effacer ce film</a>
+                  <% }); %>
+
+                </script>
+
+                <script type="text/template" id="film_details_template">
+                  <h2><%= film.get("titre") %></h2>
+                  <b>Orgine : </b><%= film.get("origine") %><br>
+                  <b>Réalisé par : </b><%= film.get("realisateur") %><br>
+                  <b>Année : </b> <%= film.get("annee") %><br>
+                  <b>Genre : </b> <%= film.get("genre") %><br>
+                  <b>Avec :</b> <%= film.get("acteur") %>
+                  <p><b>Synopsis : </b><%= film.get("resume") %></p>
+                  <p><b>Votre avis : </b> <%= film.get("commentaire") %></p>
+
+                  <a href="/">Tous les films</a>
+                </script>
+           
+                 <div id="films_list"></div>
+
+           </div>
+
+     
+        </div>
+
+    </div>
+
+  </body>
+ 
+
+
+<script src="libs/vendors/yepnope.js"></script>
+<script src="loader.js"></script>
+
+</html>
